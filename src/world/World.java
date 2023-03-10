@@ -185,37 +185,30 @@ public class World {
             int contestedY = flatten(x, y + ydir);
             int contestedD = flatten(x + xdir, y + ydir);
 
-            boolean moveFound = false;
-
             // same x or y as target & movement not obstructed
             if (x - tx == 0 && open(contestedY) && notBlackListed(contestedY)) {
                 moves[1] = ydir;
-                moveFound = true;
             } else if (y - ty == 0 && open(contestedX) && notBlackListed(contestedX)) {
                 moves[0] = xdir;
-                moveFound = true;
             }
 
             if (open(contestedX) && notBlackListed(contestedX)) {
                 moves[0] = xdir;
                 moves[1] = 0;
-                moveFound = true;
             }
 
             if (open(contestedY) && notBlackListed(contestedY)) {
                 moves[0] = 0;
                 moves[1] = ydir;
-                moveFound = true;
             }
 
             if (open(contestedD) && notBlackListed(contestedD)) {
                 moves[0] = xdir;
                 moves[1] = ydir;
-                moveFound = true;
             }
 
             // all obstructed, therefore blacklist & move back
-            if (!moveFound) {
+            if (moves[0] == 0 && moves[1] == 0) {
 
                 blackListed.add(flatten(xpos, ypos));
 
